@@ -54,6 +54,15 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.btn-disabled {
+  background-color: #7e7e7e;
+}
+
+.btn-disabled:hover {
+  border-color: transparent;
+  cursor: unset;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

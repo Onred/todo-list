@@ -1,0 +1,7 @@
+.text-area {
+    resize: none;
+    width: calc(100% - 1em);
+    height: 300px;
+    margin-left: 1em;
+    box-sizing: border-box;
+}

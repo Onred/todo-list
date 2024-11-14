@@ -1,0 +1,13 @@
+.todo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px auto;
+    height: 100%;
+    width: 100%;
+}
+
+.header {
+    grid-column: span 2;
+    font-size: 6em;
+    text-align: start;
+}

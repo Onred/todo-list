@@ -3,6 +3,8 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  height: calc(100vh - 4rem);
+  width: calc(100vw - 4rem);
 }
 
 .logo {
@@ -16,6 +18,12 @@
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.button-tray {
+  display: flex;
+  justify-content: end;
+  gap: 5px;
 }
 
 @keyframes logo-spin {
