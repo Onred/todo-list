@@ -5,6 +5,7 @@ export default function Button(props) {
     <button
         disabled={props.isDisabled}
         className={props.isDisabled ? 'btn-disabled' : ''}
+        onClick={props.callback}
     >
         {props.text}
     </button>

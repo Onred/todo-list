@@ -11,9 +11,9 @@ export default function TodoList(props) {
         <Button text="Edit" isDisabled={true} />
         <Button text="Add New"/>
       </div>
-      { props.todo_list.map(objv =>
-      <label key={objv.id} className='todo-item'>
-        <input type="radio" name="test" id="" /> {objv.objective}
+      { props.todo_list.map(todo_item =>
+      <label key={todo_item.id} className='todo-item'>
+        <input type="radio" name="todo" id="" /> {todo_item.todo}
       </label>)}
     </div>
   )
