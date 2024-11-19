@@ -3,14 +3,14 @@ import './TodoInput.css'
 import Button from '../../common/Button'
 import axios from 'axios'
 
-export default function TodoInput() {
+export default function TodoInput(props) {
   const [input, setInput] = useState("")
 
-  function add_todo_item() {
-    console.log("test")
-    let test_post = axios.post("http://localhost:3000/add-todo", {todo: input});
-    console.log(test_post);
-  }
+  // function add_todo_item() {
+  //   console.log("test")
+  //   let test_post = axios.post("http://localhost:3000/add-todo", {todo: input});
+  //   console.log(test_post);
+  // }
 
   return (
     <div>
@@ -18,7 +18,7 @@ export default function TodoInput() {
       </textarea>
       <div className="button-tray">
         <Button text="Cancel" />
-        <Button text="Submit" callback={() => add_todo_item()} />
+        <Button text="Submit" onClick={() => props.handleAddTodo(input)} />
       </div>
       
     </div>
