@@ -6,6 +6,8 @@ import axios from 'axios';
 
 export default function Todo() {
   const [todo, setTodo] = useState([]);
+  const [showInput, setShowInput] = useState(false);
+  const [selectedTodoId, setSelectedTodoId] = useState(null);
 
   // Todo Item:
   // {
@@ -40,16 +42,36 @@ export default function Todo() {
   }
 
   // Update Todo (text)
-
+  
   // Update Todo (isDone)
 
+  // axios.put(`http://localhost:3000/update-todo/${selectedTodoId}`, {isDone: true})
+
+
   // Delete Todo
+  function handleDeleteTodo() {
+    axios.delete(`http://localhost:3000/delete-todo/${selectedTodoId}`)
+    .then(response => {
+      console.log(response.data.todos);
+      setTodo(response.data.todos);
+    });
+  }
 
   return (
     <div className="todo-grid">
       <div className="header">Todo:</div>
-      <TodoList todo_list={todo} />
-      <TodoInput handleAddTodo={handleAddTodo} />
+      <TodoList
+        todo_list={todo}
+        handleDeleteTodo={handleDeleteTodo}
+        setShowInput={setShowInput}
+        setSelectedTodoId={setSelectedTodoId}
+      />
+      { showInput ?
+      <TodoInput
+        handleAddTodo={handleAddTodo}
+        setShowInput={setShowInput}
+      /> :
+      <div></div> }
     </div>
   )
 }

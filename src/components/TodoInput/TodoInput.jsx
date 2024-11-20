@@ -4,7 +4,7 @@ import Button from '../../common/Button'
 import axios from 'axios'
 
 export default function TodoInput(props) {
-  const [input, setInput] = useState("")
+
 
   // function add_todo_item() {
   //   console.log("test")
@@ -12,15 +12,22 @@ export default function TodoInput(props) {
   //   console.log(test_post);
   // }
 
+  function handleClick() {
+    let value = document.querySelector("#todo_text").value;
+    if(value !== "") {
+      props.handleAddTodo(value);
+      document.querySelector("#todo_text").value = "";
+    }
+  }
+
   return (
     <div>
-      <textarea className="text-area" id="todo_text" onChange={(e) => setInput(e.target.value)}>
+      <textarea className="text-area" id="todo_text">
       </textarea>
       <div className="button-tray">
-        <Button text="Cancel" />
-        <Button text="Submit" onClick={() => props.handleAddTodo(input)} />
+        <Button text="Cancel" onClick={() => props.setShowInput(false)}/>
+        <Button text="Submit" onClick={() => handleClick()} />
       </div>
-      
     </div>
   )
 }
