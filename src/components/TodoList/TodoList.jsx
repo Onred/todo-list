@@ -10,15 +10,22 @@ export default function TodoList(props) {
         <Button
           text="Delete"
           onClick={() => props.handleDeleteTodo()}
-          isDisabled={false}
+          isDisabled={props.selectedTodoId ? false : true}
         />
         <Button
           text="Edit"
-          isDisabled={true}
+          isDisabled={props.selectedTodoId ? false : true}
+          onClick={() => {
+            props.setEditMode(true);
+            props.setShowInput(true);
+          }}
         />
         <Button
           text="Add New"
-          onClick={() => props.setShowInput(true)}
+          onClick={() => {
+            props.setEditMode(false);
+            props.setShowInput(true);
+          }}
         />
       </div>
       { props.todo_list.map(todo_item =>
@@ -27,7 +34,10 @@ export default function TodoList(props) {
           type="radio"
           name="todo"
           id=""
-          onChange={() => props.setSelectedTodoId(todo_item.id)}
+          onChange={() => {
+            props.setSelectedTodoId(todo_item.id);
+            props.setSelectedTodoText(todo_item.todo);
+          }}
         />
         {todo_item.todo}
       </label>)}

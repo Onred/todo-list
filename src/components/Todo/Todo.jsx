@@ -8,6 +8,8 @@ export default function Todo() {
   const [todo, setTodo] = useState([]);
   const [showInput, setShowInput] = useState(false);
   const [selectedTodoId, setSelectedTodoId] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const [selectedTodoText, setSelectedTodoText] = useState(null);
 
   // Todo Item:
   // {
@@ -62,14 +64,19 @@ export default function Todo() {
       <div className="header">Todo:</div>
       <TodoList
         todo_list={todo}
+        selectedTodoId={selectedTodoId}
         handleDeleteTodo={handleDeleteTodo}
         setShowInput={setShowInput}
         setSelectedTodoId={setSelectedTodoId}
+        setSelectedTodoText={setSelectedTodoText}
+        setEditMode={setEditMode}
       />
       { showInput ?
       <TodoInput
         handleAddTodo={handleAddTodo}
         setShowInput={setShowInput}
+        editMode={editMode}
+        selectedTodoText={selectedTodoText}
       /> :
       <div></div> }
     </div>

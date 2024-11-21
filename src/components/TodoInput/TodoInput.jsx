@@ -1,16 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './TodoInput.css'
 import Button from '../../common/Button'
 import axios from 'axios'
 
 export default function TodoInput(props) {
 
-
-  // function add_todo_item() {
-  //   console.log("test")
-  //   let test_post = axios.post("http://localhost:3000/add-todo", {todo: input});
-  //   console.log(test_post);
-  // }
+  useEffect(() => {
+    const text_area_element = document.querySelector("#todo_text");
+    if(props.editMode === true) {
+      text_area_element.value = props.selectedTodoText;
+    } else {
+      text_area_element.value = "";
+    }
+  });
+  
 
   function handleClick() {
     let value = document.querySelector("#todo_text").value;
@@ -22,6 +25,12 @@ export default function TodoInput(props) {
 
   return (
     <div>
+      <label
+        htmlFor="todo_text"
+        className="text-area-label"
+      >
+        { props.editMode ? "Edit" : "Add New" }
+      </label>
       <textarea className="text-area" id="todo_text">
       </textarea>
       <div className="button-tray">

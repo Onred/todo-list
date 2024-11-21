@@ -5,3 +5,8 @@
     margin-left: 1em;
     box-sizing: border-box;
 }
+
+.text-area-label {
+    font-size: 2em;
+    margin-left: 0.5em;
+}
