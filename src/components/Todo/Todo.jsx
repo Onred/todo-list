@@ -7,9 +7,8 @@ import axios from 'axios';
 export default function Todo() {
   const [todo, setTodo] = useState([]);
   const [showInput, setShowInput] = useState(false);
-  const [selectedTodoId, setSelectedTodoId] = useState(null);
+  const [selectedTodo, setSelectedTodo] = useState({});
   const [editMode, setEditMode] = useState(false);
-  const [selectedTodoText, setSelectedTodoText] = useState(null);
 
   // Todo Item:
   // {
@@ -36,7 +35,10 @@ export default function Todo() {
 
   // Add Todo
   function handleAddTodo(input) {
-    axios.post("http://localhost:3000/add-todo", {todo: input})
+    axios.post(
+      "http://localhost:3000/add-todo",
+      {todo: input}
+    )
     .then(response => {
       console.log(response.data.todos);
       setTodo(response.data.todos);
@@ -44,18 +46,46 @@ export default function Todo() {
   }
 
   // Update Todo (text)
+  function handleUpdateText(input) {
+    axios.put(
+      `http://localhost:3000/update-todo/${selectedTodo.id}`,
+      {todo: input}
+    )
+    .then(response => {
+      console.log(response.data.todos);
+      setTodo(response.data.todos);
+      let new_selected_todo = selectedTodo;
+      new_selected_todo.todo = input;
+      setSelectedTodo(new_selected_todo);
+      setShowInput(false);
+    });
+  }
   
   // Update Todo (isDone)
-
-  // axios.put(`http://localhost:3000/update-todo/${selectedTodoId}`, {isDone: true})
+  function handleUpdateIsDone() {
+    axios.put(
+      `http://localhost:3000/update-todo/${selectedTodo.id}`,
+      {isDone: !selectedTodo.isDone}
+    )
+    .then(response => {
+      console.log(response.data.todos);
+      setTodo(response.data.todos);
+      let new_selected_todo = selectedTodo;
+      new_selected_todo.isDone = !new_selected_todo.isDone;
+      setSelectedTodo(new_selected_todo);
+    });
+  }
+  
 
 
   // Delete Todo
   function handleDeleteTodo() {
-    axios.delete(`http://localhost:3000/delete-todo/${selectedTodoId}`)
+    axios.delete(`http://localhost:3000/delete-todo/${selectedTodo.id}`)
     .then(response => {
       console.log(response.data.todos);
       setTodo(response.data.todos);
+      setShowInput(false);
+      setSelectedTodo({});
     });
   }
 
@@ -64,19 +94,21 @@ export default function Todo() {
       <div className="header">Todo:</div>
       <TodoList
         todo_list={todo}
-        selectedTodoId={selectedTodoId}
+        selectedTodo={selectedTodo}
+        editMode={editMode}
         handleDeleteTodo={handleDeleteTodo}
+        handleUpdateIsDone={handleUpdateIsDone}
         setShowInput={setShowInput}
-        setSelectedTodoId={setSelectedTodoId}
-        setSelectedTodoText={setSelectedTodoText}
+        setSelectedTodo={setSelectedTodo}
         setEditMode={setEditMode}
       />
       { showInput ?
       <TodoInput
         handleAddTodo={handleAddTodo}
+        handleUpdateText={handleUpdateText}
         setShowInput={setShowInput}
         editMode={editMode}
-        selectedTodoText={selectedTodoText}
+        selectedTodo={selectedTodo}
       /> :
       <div></div> }
     </div>

@@ -2,3 +2,7 @@
     display: block;
     text-align: start;
 }
+
+.done {
+    text-decoration: line-through;
+}

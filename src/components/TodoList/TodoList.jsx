@@ -10,11 +10,16 @@ export default function TodoList(props) {
         <Button
           text="Delete"
           onClick={() => props.handleDeleteTodo()}
-          isDisabled={props.selectedTodoId ? false : true}
+          isDisabled={props.selectedTodo.id ? false : true}
+        />
+        <Button
+          text={props.selectedTodo.isDone ? "Unmark Complete" : "Mark Complete"}
+          onClick={() => props.handleUpdateIsDone()}
+          isDisabled={props.selectedTodo.id ? false : true}
         />
         <Button
           text="Edit"
-          isDisabled={props.selectedTodoId ? false : true}
+          isDisabled={props.selectedTodo.id ? false : true}
           onClick={() => {
             props.setEditMode(true);
             props.setShowInput(true);
@@ -25,6 +30,7 @@ export default function TodoList(props) {
           onClick={() => {
             props.setEditMode(false);
             props.setShowInput(true);
+            props.setSelectedTodo({});
           }}
         />
       </div>
@@ -33,13 +39,24 @@ export default function TodoList(props) {
         <input
           type="radio"
           name="todo"
+          className="radio-button"
           id=""
           onChange={() => {
-            props.setSelectedTodoId(todo_item.id);
-            props.setSelectedTodoText(todo_item.todo);
+            props.setSelectedTodo(todo_item);
+            if(!props.editMode) {
+              props.setShowInput(false);
+            }
           }}
+
+          // If you want to change the input based on state,
+          // you must USE the state to set the input.
+          // In other words, the input wont reset or react
+          // unless it's hooked up to a state somehow.
+          checked={props.selectedTodo.id === todo_item.id ? true : false}
         />
-        {todo_item.todo}
+        <span className={todo_item.isDone ? "done" : ""}>
+          {todo_item.todo}
+        </span>
       </label>)}
     </div>
   )

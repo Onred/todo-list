@@ -8,7 +8,7 @@ export default function TodoInput(props) {
   useEffect(() => {
     const text_area_element = document.querySelector("#todo_text");
     if(props.editMode === true) {
-      text_area_element.value = props.selectedTodoText;
+      text_area_element.value = props.selectedTodo.todo;
     } else {
       text_area_element.value = "";
     }
@@ -18,7 +18,12 @@ export default function TodoInput(props) {
   function handleClick() {
     let value = document.querySelector("#todo_text").value;
     if(value !== "") {
-      props.handleAddTodo(value);
+      if(props.editMode) {
+        props.handleUpdateText(value);
+      }
+      else {
+        props.handleAddTodo(value);
+      }
       document.querySelector("#todo_text").value = "";
     }
   }
