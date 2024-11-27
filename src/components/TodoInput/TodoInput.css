@@ -10,3 +10,9 @@
     font-size: 2em;
     margin-left: 0.5em;
 }
+
+.input-submit-row {
+    margin-left: 1em;
+    display: flex;
+    justify-content: space-between;
+}

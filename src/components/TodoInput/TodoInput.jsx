@@ -5,6 +5,8 @@ import axios from 'axios'
 
 export default function TodoInput(props) {
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   useEffect(() => {
     const text_area_element = document.querySelector("#todo_text");
     if(props.editMode === true) {
@@ -17,7 +19,9 @@ export default function TodoInput(props) {
 
   function handleClick() {
     let value = document.querySelector("#todo_text").value;
-    if(value !== "") {
+    try {
+      if(value === "") throw "Cannot submit empty todo.";
+      if(value.length < 5) throw "Todo item too short!";
       if(props.editMode) {
         props.handleUpdateText(value);
       }
@@ -26,6 +30,12 @@ export default function TodoInput(props) {
       }
       document.querySelector("#todo_text").value = "";
     }
+    catch(error) {
+      console.log("hi", error);
+      setErrorMessage(error);
+    }
+    
+    
   }
 
   return (
@@ -38,10 +48,14 @@ export default function TodoInput(props) {
       </label>
       <textarea className="text-area" id="todo_text">
       </textarea>
-      <div className="button-tray">
-        <Button text="Cancel" onClick={() => props.setShowInput(false)}/>
-        <Button text="Submit" onClick={() => handleClick()} />
+      <div className="input-submit-row"> 
+        <span className="error-text">{errorMessage}</span>
+        <div className="button-tray">
+          <Button text="Cancel" onClick={() => props.setShowInput(false)}/>
+          <Button text="Submit" onClick={() => handleClick()} />
+        </div>
       </div>
+      
     </div>
   )
 }

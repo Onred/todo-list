@@ -24,10 +24,13 @@ export default function Todo() {
   useEffect(() => {
     // Get all of the Todos that are currently in the backend.
     axios.get("http://localhost:3000/get-todos")
+    .catch(error => {
+      console.log("hi", error);
+    })
     .then(response => {
       console.log(response.data.todos);
       setTodo(response.data.todos);
-    });
+    })
   }, []);
 
   // Every time the backend does something, it will
