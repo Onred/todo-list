@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import TodoList from '../TodoList/TodoList'
-import TodoInput from '../TodoInput/TodoInput'
+import TodoList from './TodoList'
+import TodoInput from './TodoInput'
 import './Todo.css'
 import axios from 'axios';
 

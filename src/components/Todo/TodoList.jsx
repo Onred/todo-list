@@ -1,5 +1,4 @@
 import React from 'react'
-import './TodoList.css'
 import Button from '../../common/Button'
 
 export default function TodoList(props) {

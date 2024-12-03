@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './TodoInput.css'
 import Button from '../../common/Button'
-import axios from 'axios'
 
 export default function TodoInput(props) {
 

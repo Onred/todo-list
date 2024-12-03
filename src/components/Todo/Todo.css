@@ -11,3 +11,31 @@
     font-size: 6em;
     text-align: start;
 }
+
+.todo-item {
+    display: block;
+    text-align: start;
+}
+
+.done {
+    text-decoration: line-through;
+}
+
+.text-area {
+    resize: none;
+    width: calc(100% - 1em);
+    height: 300px;
+    margin-left: 1em;
+    box-sizing: border-box;
+}
+
+.text-area-label {
+    font-size: 2em;
+    margin-left: 0.5em;
+}
+
+.input-submit-row {
+    margin-left: 1em;
+    display: flex;
+    justify-content: space-between;
+}
