@@ -29,6 +29,20 @@
   color: #f38ba8;
 }
 
+.navbar {
+  display: flex;
+  gap: 20px;
+}
+
+.active {
+  color: white;
+  text-decoration: underline;
+}
+
+.active:hover {
+  color: gainsboro;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
