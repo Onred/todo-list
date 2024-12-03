@@ -29,6 +29,10 @@
   color: #f38ba8;
 }
 
+.line-height {
+  height: 1.5em;
+}
+
 .navbar {
   display: flex;
   gap: 20px;
