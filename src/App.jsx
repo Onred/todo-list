@@ -1,16 +1,18 @@
+import { useState } from 'react'
 import './App.css'
-import Todo from './components/Todo/Todo'
-import SignUp from './components/SignUp/SignUp'
 import NavBar from './components/NavBar'
 import { Outlet } from 'react-router-dom'
+import { ThemeContext } from './Contexts';
 
-function App(props) {
+function App() {
+  const [theme, setTheme] = useState("light");
+  
   return (
     <>
-      <NavBar pages={props.pages} />
-      <Outlet/>
-      {/* <Todo/> */}
-      {/* <SignUp/> */}
+      <ThemeContext.Provider value={theme}>
+        <NavBar/>
+        <Outlet/>
+      </ThemeContext.Provider>
     </>
   )
 }

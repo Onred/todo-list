@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+import { PageContext } from '../Contexts';
 
-export default function NavBar(props) {
+export default function NavBar() {
+  let pages = useContext(PageContext);
   return (
     <>
     <div className="navbar">
-      {props.pages[0].children.map(page => 
-        <NavLink key={page.name} to={page.path}>
-          {page.name}
+      {pages.map(page => 
+        <NavLink key={page.path} to={page.path}>
+          {page.custom_display_text}
         </NavLink>
       )}
     </div>
