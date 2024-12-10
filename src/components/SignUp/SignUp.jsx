@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import './SignUp.css'
 import Button from '../../common/Button'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
   const [signUpInfo, setSignUpInfo] = useState({
@@ -12,25 +14,67 @@ export default function SignUp() {
   const [errUsername, setErrUsername] = useState("");
   const [errEmail, setErrEmail] = useState("");
   const [errPassword, setErrPassword] = useState("");
+  const [errButton, setErrButton] = useState("");
+
+  const navigate = useNavigate();
+
+  function clearErrors() {
+    setErrUsername("");
+    setErrEmail("");
+    setErrPassword("");
+    setErrButton("");
+  }
 
   function handleClick() {
-    console.log("hey");
+    
+    setErrButton("");
+
+    console.log(!(checkValidUsername(signUpInfo.username) && checkValidEmail(signUpInfo.email) && checkPasswordMatch()))
+    console.log(checkValidUsername(signUpInfo.username))
+    console.log(checkValidEmail(signUpInfo.email))
+    console.log(checkPasswordMatch())
+
+    if( !(checkValidUsername(signUpInfo.username) && checkValidEmail(signUpInfo.email) && checkPasswordMatch()) ) {
+      setErrButton("There are errors that you must fix.");
+      return;
+    }
+
+    let payload = {
+      username: signUpInfo.username,
+      email: signUpInfo.email,
+      password: signUpInfo.password
+    }
+
+    axios.post("http://localhost:3001/users/sign-up", payload)
+    .catch(err => {
+      setErrButton("A backend error occured. Check the console for more information");
+      console.log(err)
+    })
+    .then(response => {
+      console.log(response.data);
+      navigate("/login");
+    })
+    .catch(err => {
+      setErrButton("A response error occured. Check the console for more information");
+      console.log(err)
+    })
   }
 
   function checkValidUsername(username) {
     // Fail if the string is empty
     if(username === "") {
       setErrUsername("Required");
-      return -1;
+      return false;
     }
     setErrUsername("");
+    return true;
   }
 
   function checkValidEmail(email) {
     // Fail if the string is empty
     if(email === "") {
       setErrEmail("Required");
-      return -1;
+      return false;
     }
 
     // Fail if the string has less or more than 1 @.
@@ -42,35 +86,37 @@ export default function SignUp() {
     }
     if(atCount !== 1) {
       setErrEmail("Email must include one @");
-      return -1;
+      return false;
     }
 
     // Fail if the string does not have text on both sides.
     let split_email = email.split("@");
     if(split_email[0] === "" || split_email[1] === "") {
       setErrEmail("Email must have text before and after the @");
-      return -1;
+      return false;
     }
 
     // Fail if the right side of the string contains no period.
     if(!split_email[1].includes(".")) {
       setErrEmail("Email must have a top level domain (eg: .com)");
-      return -1;
+      return false;
     }
     
     setErrEmail("");
+    return true;
   }
 
   function checkPasswordMatch() {
     if(signUpInfo.password === "" || signUpInfo.confirm_pw === "") {
       setErrPassword("");
-      return -1;
+      return false;
     }
     if(signUpInfo.password !== signUpInfo.confirm_pw) {
       setErrPassword("Passwords must match")
-      return -1;
+      return false;
     }
     setErrPassword("");
+    return true;
   }
 
   return (
@@ -111,6 +157,7 @@ export default function SignUp() {
       />
       <div className="error-text line-height">{errPassword}</div>
 
+      <div className="error-text line-height">{errButton}</div>
       <Button text="Continue" onClick={() => handleClick()} />
     </div>
     
