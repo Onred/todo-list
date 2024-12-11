@@ -38,6 +38,11 @@
   gap: 20px;
 }
 
+.flex-ends {
+  display: flex;
+  justify-content: space-between;
+}
+
 .active {
   color: white;
   text-decoration: underline;

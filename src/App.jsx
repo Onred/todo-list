@@ -1,18 +1,40 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import NavBar from './components/NavBar'
 import { Outlet } from 'react-router-dom'
-import { ThemeContext } from './Contexts';
+import { AuthContext } from './Contexts';
+import { jwtDecode } from 'jwt-decode';
 
 function App() {
-  const [theme, setTheme] = useState("light");
+  const [userData, setUserData] = useState(null);
+
+  useEffect(app_mounted, [])
+
+  function app_mounted() {
+    // Find the jwt in localstorage if it exists
+    let jwt = localStorage.getItem("jwt");
+
+    // If we do have a jwt:
+    if(jwt) {
+
+      // decode it,
+      let decoded_jwt = jwtDecode(jwt);
+
+      // make sure it is not expired,
+      if(decoded_jwt.exp > Date.now() / 1000) {
+
+        // and then set our user data.
+        setUserData(decoded_jwt);
+      }
+    }
+  }
   
   return (
     <>
-      <ThemeContext.Provider value={theme}>
+      <AuthContext.Provider value={userData}>
         <NavBar/>
         <Outlet/>
-      </ThemeContext.Provider>
+      </AuthContext.Provider>
     </>
   )
 }

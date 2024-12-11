@@ -46,10 +46,6 @@ export default function SignUp() {
     }
 
     axios.post("http://localhost:3001/users/sign-up", payload)
-    .catch(err => {
-      setErrButton("A backend error occured. Check the console for more information");
-      console.log(err)
-    })
     .then(response => {
       console.log(response.data);
       navigate("/login");
