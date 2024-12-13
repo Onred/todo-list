@@ -1,7 +1,7 @@
 import { createContext, StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router, createBrowserRouter, RouterProvider, Route, Routes } from 'react-router-dom'
-import './index.css'
+// import './index.css'
 // import './App.css'
 import Todo from './components/Todo/Todo.jsx'
 import SignUp from './components/SignUp/SignUp.jsx'
@@ -15,6 +15,7 @@ import Button from './common/Button.jsx'
 import { PageContext, AuthContext } from './Contexts.js';
 import SignIn from './components/SignIn/SignIn.jsx'
 import PrivateRoute from './components/PrivateRoute.jsx'
+import UserProfile from './components/UserProfile.jsx'
 
 // const pages = [
 //   {
@@ -65,6 +66,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/about" element={<About/>}/>
             <Route path="/contact" element={<Contact/>}/>
             <Route path="/profile" element={<Profile/>}/>
+            <Route path="/profile/:username" element={<UserProfile/>}/>
           </Route>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/login" element={<SignIn/>}/>

@@ -7,7 +7,7 @@ export default function PrivateRoute() {
 
   function isSignedIn() {
     // Logic and if statments and other checks to see if we are actually logged in.
-    if(userData) {
+    if(userData.id) {
       return true;
     } else {
       return false;

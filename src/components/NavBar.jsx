@@ -1,10 +1,21 @@
 import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AuthContext } from '../Contexts'
+import { Button } from 'react-bootstrap';
+
 
 
 export default function NavBar() {
   const userData = useContext(AuthContext);
+
+  function changeTheme() {
+    let current_theme = document.documentElement.getAttribute("data-bs-theme")
+    if(current_theme === "dark") {
+      document.documentElement.setAttribute("data-bs-theme", "light")
+    } else {
+      document.documentElement.setAttribute("data-bs-theme", "dark")
+    }
+  }
 
   return (
     <>
@@ -15,6 +26,7 @@ export default function NavBar() {
         <NavLink to={"/contact"}>Contact</NavLink>
         <NavLink to={"/profile"}>Profile</NavLink>
         <NavLink to={"/signup"}>Sign Up</NavLink>
+        <Button onClick={() => changeTheme()}>Change Theme</Button>
       </div>
       <div>{userData ? "Hello, " + userData.username : null}</div>
     </div>
