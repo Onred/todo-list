@@ -15,6 +15,9 @@ import Button from './common/Button.jsx'
 import { PageContext, AuthContext } from './Contexts.js';
 import SignIn from './components/SignIn/SignIn.jsx'
 import PrivateRoute from './components/PrivateRoute.jsx'
+import Quiz from './components/Quiz.jsx'
+
+
 
 // const pages = [
 //   {
@@ -65,6 +68,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/about" element={<About/>}/>
             <Route path="/contact" element={<Contact/>}/>
             <Route path="/profile" element={<Profile/>}/>
+            <Route path="/quiz" element={<Quiz/>}/>
           </Route>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/login" element={<SignIn/>}/>

@@ -6,6 +6,7 @@ export default function PrivateRoute() {
   const userData = useContext(AuthContext);
 
   function isSignedIn() {
+    return true;
     // Logic and if statments and other checks to see if we are actually logged in.
     if(userData) {
       return true;

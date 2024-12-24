@@ -15,6 +15,7 @@ export default function NavBar() {
         <NavLink to={"/contact"}>Contact</NavLink>
         <NavLink to={"/profile"}>Profile</NavLink>
         <NavLink to={"/signup"}>Sign Up</NavLink>
+        <NavLink to={"/quiz"}>Quiz</NavLink>
       </div>
       <div>{userData ? "Hello, " + userData.username : null}</div>
     </div>
