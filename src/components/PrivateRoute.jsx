@@ -1,19 +1,20 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom';
-import { AuthContext } from '../Contexts';
 
 export default function PrivateRoute() {
-  const userData = useContext(AuthContext);
-
   function isSignedIn() {
     return true;
     // Logic and if statments and other checks to see if we are actually logged in.
-    if(userData) {
+<<<<<<< HEAD
+    if(userData.id) {
       return true;
     } else {
       return false;
     }
     
+=======
+    return true;
+>>>>>>> parent of 596270a (Auth Checking)
   }
 
   return (

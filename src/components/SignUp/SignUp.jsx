@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import './SignUp.css'
-import Button from '../../common/Button'
+// import Button from '../../common/Button'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Card, Form, Button } from 'react-bootstrap';
+
 
 export default function SignUp() {
   const [signUpInfo, setSignUpInfo] = useState({
@@ -46,6 +48,10 @@ export default function SignUp() {
     }
 
     axios.post("http://localhost:3001/users/sign-up", payload)
+    .catch(err => {
+      setErrButton("A backend error occured. Check the console for more information");
+      console.log(err)
+    })
     .then(response => {
       console.log(response.data);
       navigate("/login");
@@ -117,45 +123,64 @@ export default function SignUp() {
 
   return (
     <>
-    <div className="card">
-      <label htmlFor="username">Username</label>
-      <input
-        id="username"
-        type="text"
-        onChange={(e) => setSignUpInfo({...signUpInfo, username: e.target.value})}
-        onBlur={(e) => checkValidUsername(e.target.value)}
-      />
-      <div className="error-text line-height">{errUsername}</div>
+    <Form className="m-5">
+      <Form.Group className="mb-3" controlId="formUsername">
+        <Form.Label>Username</Form.Label>
+        <Form.Control
+          type="text"
+          onChange={(e) => setSignUpInfo({...signUpInfo, username: e.target.value})}
+          onBlur={(e) => checkValidUsername(e.target.value)}
+        />
+        <Form.Text>
+          <div className="error-text">{errUsername}</div>
+        </Form.Text>
+      </Form.Group>
 
-      <label htmlFor="email">Email</label>
-      <input
-        id="email"
-        type="text"
-        onChange={(e) => setSignUpInfo({...signUpInfo, email: e.target.value})}
-        onBlur={(e) => checkValidEmail(e.target.value)}
-      />
-      <div className="error-text line-height">{errEmail}</div>
+      <Form.Group className="mb-3" controlId="formEmail">
+        <Form.Label>Email</Form.Label>
+        <Form.Control
+          type="text"
+          onChange={(e) => setSignUpInfo({...signUpInfo, email: e.target.value})}
+          onBlur={(e) => checkValidEmail(e.target.value)}
+        />
+        <Form.Text>
+        <div className="error-text">{errEmail}</div>
+        </Form.Text>
+      </Form.Group>
 
-      <label htmlFor="password">Password</label>
-      <input
-        id="password"
-        type="password"
-        onChange={(e) => setSignUpInfo({...signUpInfo, password: e.target.value})}
-        onBlur={() => checkPasswordMatch()}
-      />
-      <div className="line-height"></div>
-      <label htmlFor="confirm_pw">Retype Password</label>
-      <input
-        id="confirm_pw"
-        type="password"
-        onChange={(e) => setSignUpInfo({...signUpInfo, confirm_pw: e.target.value})}
-        onBlur={() => checkPasswordMatch()}
-      />
-      <div className="error-text line-height">{errPassword}</div>
+      <Form.Group className="mb-3" controlId="formPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+          type="password"
+          onChange={(e) => setSignUpInfo({...signUpInfo, password: e.target.value})}
+          onBlur={() => checkPasswordMatch()}
+        />
+      </Form.Group>
 
-      <div className="error-text line-height">{errButton}</div>
-      <Button text="Continue" onClick={() => handleClick()} />
-    </div>
+      <Form.Group className="mb-3" controlId="formConfirm">
+        <Form.Label>Retype Password</Form.Label>
+        <Form.Control
+          type="password"
+          onChange={(e) => setSignUpInfo({...signUpInfo, confirm_pw: e.target.value})}
+          onBlur={() => checkPasswordMatch()}
+        />
+        <Form.Text>
+        <div className="error-text">{errPassword}</div>
+        </Form.Text>
+      </Form.Group>
+      <div className="d-grid">
+        <Button
+          variant="secondary"
+          size="lg"
+          onClick={() => handleClick()}
+        >
+          Continue
+        </Button>
+      </div>
+      
+    </Form>
+
+    
     
       
     </>
